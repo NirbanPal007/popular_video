@@ -1,0 +1,49 @@
+@import url('https://fonts.googleapis.com/css2?family=Merriweather&family=Playfair+Display:wght@700&display=swap');
+
+/* Heading  */
+.heading1{
+    font-family: 'Merriweather', serif;
+    font-family: 'Playfair Display', serif
+}
+
+/* Search bar  */
+#searchbar {
+    width: 100%;
+    font-size: 17px;
+    padding: 5px 20px 10px 9px;
+    border: 1px solid #ddd;
+    margin-bottom: 1%;
+  }
+  /* Rice logo  */
+.logo{
+    margin-left: 4%;
+}
+
+/* Columns for searchbar and buttons */
+.col-lg-3{
+    /* display: flex;
+    justify-content: flex-end; */
+    text-align: right;
+}
+/* a{
+    color: black !important;
+} */
+/* a:visited{
+    color: blueviolet ;
+} */
+
+
+/* Table  */
+#example{
+    overflow: auto;
+}
+
+/* Edit and delete icons */
+.toolicons{
+    display: flex; 
+    flex-direction: row; 
+    align-items: center; 
+    justify-content: flex-start;
+}
+
+

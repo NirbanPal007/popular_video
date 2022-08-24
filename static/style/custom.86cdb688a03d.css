@@ -1,0 +1,58 @@
+.top-head {
+	background-image: -webkit-gradient(linear, left top, right top, color-stop(9%, #2a4391), to(#42bffe));
+	background-image: -webkit-linear-gradient(left, #2a4391 9%, #42bffe 100%);
+	background-image: -o-linear-gradient(left, #2a4391 9%, #42bffe 100%);
+	background-image: -ms-linear-gradient(left, #2a4391 9%, #42bffe 100%);
+	background-image: -moz-linear-gradient(left, #2a4391 9%, #42bffe 100%);
+	background-image: linear-gradient(to right, #ff1c05 60%, #030400 100%);
+	height: 11px;
+}
+.logo img {
+	height: 50px !important;
+	object-fit: contain;
+	margin-top: -8px;
+}
+.header-global {
+	width: 100% !important;
+	height: 100px !important;
+	background-color: #fff !important;
+	border-bottom: 1px solid rgba(0, 0, 0, 0.1) !important;
+	box-shadow: none !important;
+}
+.header-global .wrapper-header {
+	padding-top: 24px !important;
+	max-width: 1430px !important;
+}
+/*============ Responsive CSS for added ============*/
+@media only screen and (max-width: 769px) {
+	.container {
+		min-width: 100% !important;
+		width: 100% !important;
+   }
+}
+@media only screen and (min-width: 770px) and (max-width: 1200px) {
+	.header-global h1.logo {
+		margin: -2px 39px 0 15px !important;
+   }
+}
+@media only screen and (max-width: 769px) {
+	.header-global h1.logo {
+		float: left !important;
+		margin: 0 !important;
+   }
+	.header-global .wrapper-header {
+		width: 130px !important;
+		padding: 20px 5px 20px 20px !important;
+		float: left !important;
+   }
+}
+/* header-css*/
+header.global-header {
+   padding-left: 0px;
+   padding-right:0px;
+   background-color: #38393b!important;
+   color: white;
+   margin-bottom: 60px;
+}
+
+

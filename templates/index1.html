@@ -1,0 +1,137 @@
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Document</title>
+  {%load staticfiles%}
+  <!-- Linking the main stylesheet  -->
+  <link rel="stylesheet" href="{%static 'style/style1.css' %}" />
+
+  <!-- Script for datatable  -->
+  <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+  <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+  <script src="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js"
+    integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js"
+    integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+    crossorigin="anonymous"></script>
+
+  <!-- Script for Font Awesome Icons -->
+  <script src="https://kit.fontawesome.com/f1f5ce8578.js" crossorigin="anonymous"></script>
+
+  <!-- Stylesheet for RiceSmart Nav  -->
+  <link rel="stylesheet" href="{%static 'style/bootstrap.404e2a97cc5c.css' %}" type="text/css" media="all" />
+  <link rel="stylesheet" href="{%static 'style/custom.86cdb688a03d.css' %}" media="all" />
+
+  <!-- Stylesheet for datatable  -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous" />
+</head>
+
+<body>
+  <!-- RiceSmart Nav  -->
+  <header id="global-navigation" class="header-global">
+    <div class="top-head"></div>
+    <!--my changes add conatiner class here -->
+    <div class="conatiner">
+      <nav aria-label="Global" style="margin: 0 auto">
+        <h1 class="logo" style="display: inline-block; margin-top: 30px !important">
+          <a href="https://lms-pp.ricesmart.in/">
+            <img class="" width="200px" height="200px" src="{%static 'style/logo.22285f727990.webp' %}"
+              alt="RICE Smart Home Page" />
+          </a>
+        </h1>
+      </nav>
+    </div>
+  </header>
+  <!-- Main body -->
+  <div class="container-fluid" style="padding-right: 10%; padding-left: 10%">
+    <div class="contents bg-light p-5 mt-5 mb-5">
+      <div class="heading1 mb-4">
+        <h2>Popular videos</h2>
+      </div>
+      <!-- Table starts -->
+      <form action="/deleteselected" method="post" style="width: 100%">
+        {% csrf_token %}
+        <table id="example" class="table table-hover table-responsive-sm bg-white" style="width: 100%">
+          <!-- Div for searchbar and buttons -->
+          <div class="tablehead">
+            <div class="row">
+              <div class="col-lg">
+                <input type="text" id="searchbar" onkeyup="myFunction()" placeholder="Search for playlist names.."
+                  title="Type in a name" />
+              </div>
+              <div class="col-lg-3">
+                <a href="/add" type="button" class="btn btn-primary m-1 mb-2">Add</a>
+                <button type="submit" class="btn btn-danger m-1 mb-2" style="margin-right: 0; background-color: #ed2d29"
+                  value="submit">
+                  Delete
+                </button>
+                <!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal1" onclick="modifyRow()">
+                    Modify
+                  </button> -->
+              </div>
+            </div>
+          </div>
+          <thead>
+            <!-- Column headings -->
+            <tr style="background-color: #58595a; color: white">
+              <th>
+                <span class="custom-checkbox">
+                  <input type="checkbox" id="selectAll" />
+                  <label for="selectAll"></label>
+                </span>
+              </th>
+              <th>Playlist name</th>
+              <!-- <th>Show</th> -->
+              <th>Courses</th>
+              <th>Last Edited On</th>
+              <th>Last Edited By</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- Actual table content   -->
+            {% for i in tech %}
+            <tr>
+              <td>
+                <span class="custom-checkbox">
+                  <input type="checkbox" class="select" id="checkbox1" name="boxes" value="{{i.id}}" />
+                  <label for="checkbox1"></label>
+                </span>
+              </td>
+              <td>{{i.playlist_name}}</td>
+              <!-- <td><a href="#"><i class="fa fa-eye" aria-hidden="true"></i></td></a> -->
+              <td>{{i.description}}</td>
+              <td>{{i.updated_at}}</td>
+              <td>{{i.updated_by}}</td>
+              <td>
+                <div class="toolicons">
+                  <div class="edit" style="margin: 2px 5px">
+                    <a href="/modify" class="edit"><i class="fa fa-pencil" aria-hidden="true" data-toggle="tooltip"
+                        title="Edit" style="color: #007bff"></i></a>
+                  </div>
+                  <div class="delete" style="margin: 2px 5px">
+                    <a href="/delete/{{i.id}}" class="delete"><i class="fa fa-minus-circle" data-toggle="tooltip"
+                        title="Delete" style="color: #ed2d29"></i></a>
+                  </div>
+                </div>
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </form>
+    </div>
+  </div>
+  <!-- Linking the main script  -->
+  <script src="{%static 'js/logic1.js' %}"></script>
+</body>
+
+</html>
