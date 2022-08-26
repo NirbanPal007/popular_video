@@ -1,10 +1,10 @@
-//edit modal off
-// $('form').submit(function(e) {
-//     e.preventDefault();
-//     // Coding
-//     $('#addVideoModal').modal('hide'); 
-//     return false;
-// });
+// edit modal off
+$('#myfrm').submit(function(e) {
+    e.preventDefault();
+    // Coding
+    $('#addVideoModal').modal('hide'); 
+    return false;
+});
 
 //select all function
 $('#select-all').click(function(event) {   
@@ -60,6 +60,7 @@ $(function () {
 const formEl = document.getElementById('myfrm');
 const tbodyEl = document.querySelector('tbody');  
 const tableEl = document.querySelector("table");
+var dict = [];
 
 function onAddWebsite(e) {
     e.preventDefault();
@@ -81,5 +82,40 @@ function onAddWebsite(e) {
 
         </tr>	
     `;
+    dict.push({
+        viname : vidname,
+        ykey : ytkey 
+    });
     document.getElementById('myfrm').reset();
+    // console.log(dict);
 }
+
+formEl.addEventListener('submit',onAddWebsite)
+
+
+
+function onDeleteRow(e){
+    if (!e.target.classList.contains("deleteBtn")) {
+        return;
+    }
+    const btn = e.target;
+    btn.closest('tr').remove();
+    
+    const idx = dict.findIndex(({viname})=> viname === e.target.parentNode.parentNode.children[2].innerHTML);
+    dict.splice(idx,1);
+}
+tableEl.addEventListener('click',onDeleteRow)
+
+
+
+
+$("#submitbn").click(function(){
+    var ptitle = $("#title").val();
+    var pdesc = $("#pdesc").val();
+    dictfinal = {
+        ptitle:ptitle,
+        pdesc:pdesc,
+        videos:dict
+    }
+    console.log(dictfinal);
+})

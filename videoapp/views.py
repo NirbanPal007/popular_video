@@ -1,5 +1,6 @@
 from xml.etree.ElementTree import Comment
 from django.db import reset_queries
+from django.http import JsonResponse
 from django.shortcuts import redirect, render,HttpResponse
 from videoapp.models import PopularVideosPlaylist,PopularVideo
 
@@ -48,6 +49,13 @@ def deleteselected(request):
         #     tech.delete()
         PopularVideosPlaylist.objects.filter(id__in=id_list).delete()
     return redirect('index1')  
+
+     
+
+
+
+
+
 
 
 

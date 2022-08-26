@@ -8,7 +8,6 @@
 	<title>Document</title>
 	{%load staticfiles%}
 	<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-	<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"
 		integrity="sha256-T0Vest3yCU7pafRw9r+settMBX6JkKN06dqBnpQ8d30=" crossorigin="anonymous"></script>
@@ -52,8 +51,7 @@
 		</div>
 	</header>
 	<div class="container-fluid maindiv">
-		<form action="{% url 'adding' %}" method="post" style="width:100%">
-			{% csrf_token %}
+		<form action="" method="" style="width:100%">
 			<div class="container-fluid">
 				<div class="playlist">
 					<h3>Playlist</h3>
@@ -88,7 +86,7 @@
 							</div>
 							<div class="col-9">
 								<!-- <input type="text" id="title"> -->
-								<textarea name="comment" class="shadw border-rela" rows="7"
+								<textarea name="comment" id="pdesc" class="shadw border-rela" rows="7"
 									placeholder="Enter details about your playlist..." required></textarea>
 								<!-- <input type="text" id="description"> -->
 							</div>
@@ -105,7 +103,7 @@
 					<div class="col-md-3 px-3 py-2">
 						<div class="sidebutton btn-group-vertical" style="width:100%">
 
-							<button type="submit" class="btn btn-success shadw-b" title="Save">
+							<button type="button" class="btn btn-success shadw-b" title="Save" id="submitbn">
 								<i class="fa-solid fa-floppy-disk marfont siz-mar"></i>Save</button>
 
 							<button type="button" class="btn btn-primary shadw-b" title="Add"><i
@@ -137,18 +135,18 @@
 								<h2>Manage videos</h2>
 							</div>
 							<div class="col-sm-12 col-md-8">
-								<button href="#addVideoModal" class="btn btn-success buttonh shadw-v"
+								<a href="#addVideoModal" class="btn btn-success buttonh shadw-v"
 									data-toggle="modal"><i class="fa-solid fa-circle-plus"></i><span
 										data-toggle="tooltip" data-placement="top" title="Add Video">Add New
-										Video</span></button>
-								<button href="#deleteEmployeeModal" class="btn btn-danger buttonh shadw-v"
+										Video</span></a>
+								<a href="#deleteEmployeeModal" class="btn btn-danger buttonh shadw-v"
 									data-toggle="modal"><i class="fa-solid fa-circle-minus"></i><span
-										data-toggle="tooltip" data-placement="top" title="Delete">Delete</span></button>
+										data-toggle="tooltip" data-placement="top" title="Delete">Delete</span></a>
 
-								<button class="btn btn-success buttonh shadw-v">
+								<a class="btn btn-success buttonh shadw-v">
 									<input type="checkbox" name="select-all" id="select-all" />
 									<p data-toggle="tooltip" data-placement="top" title="Select all">Select all</p>
-								</button>
+								</a>
 							</div>
 						</div>
 					</div>
@@ -160,7 +158,7 @@
 								</tr>
 							</thead> -->
 						<tbody>
-							<tr draggable="true" ondragstart="start()" ondragover="dragover()">
+							{% comment %} <tr draggable="true" ondragstart="start()" ondragover="dragover()">
 								<td>
 									<input type="checkbox" name="checkbox-1" id="checkbox-1" class="select" />
 								</td>
@@ -182,7 +180,7 @@
 										style="border: 1px solid red;" data-toggle="tooltip" data-placement="right"
 										title="Remove">Remove</button>
 								</td>
-							</tr>
+							</tr> {% endcomment %}
 						</tbody>
 					</table>
 				</div>
@@ -194,6 +192,7 @@
 			<div class="modal-dialog">
 				<div class="modal-content">
 					<form action="" method="post" id="myfrm">
+						{% csrf_token %}
 						<div class="modal-header">
 							<h4 class="modal-title">Add Video</h4>
 						</div>
@@ -253,10 +252,10 @@
 						<h4 class="modal-title">Watch Video</h4>
 					</div>
 					<div class="modal-body">
-						<iframe id="cls" width="100%" height="315" src="https://www.youtube.com/embed/25k7Zs_c5FM"
+						<!-- <iframe id="cls" width="100%" height="315" src="https://www.youtube.com/embed/25k7Zs_c5FM"
 							title="YouTube video player" frameborder="0"
 							allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-							allowfullscreen></iframe>
+							allowfullscreen></iframe> -->
 
 					</div>
 					<div class="modal-footer">
@@ -266,7 +265,7 @@
 				</div>
 			</div>
 		</div>
-		<script src="{%static 'js/logics.js' %}"></script>
+		<script src="{%static 'js/logicadd.js' %}"></script>
 	</div>
 </body>
 
