@@ -7,17 +7,23 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Document</title>
 	{%load staticfiles%}
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 	<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	{% comment %} <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script> {% endcomment %}
 	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"
 		integrity="sha256-T0Vest3yCU7pafRw9r+settMBX6JkKN06dqBnpQ8d30=" crossorigin="anonymous"></script>
 	<link rel="stylesheet" href="{% static 'style/style.css' %}">
 
 
+	{% comment %} <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script> {% endcomment %}
+	{% comment %} <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.24/themes/smoothness/jquery-ui.css" />
+	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.24/jquery-ui.min.js"></script> {% endcomment %}
+
+
 
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 	<link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/dataTables.bootstrap.min.css">
-	<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+	{% comment %} <script src="https://code.jquery.com/jquery-3.5.1.js"></script> {% endcomment %}
 	<script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
 	<script src="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap.min.js"></script>
 
@@ -26,7 +32,7 @@
 	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 
-	<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script> -->
+	
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 	<script src="https://kit.fontawesome.com/735bfd37ee.js" crossorigin="anonymous"></script>
 	<!-- for nav -->
@@ -158,29 +164,6 @@
 								</tr>
 							</thead> -->
 						<tbody>
-							{% comment %} <tr draggable="true" ondragstart="start()" ondragover="dragover()">
-								<td>
-									<input type="checkbox" name="checkbox-1" id="checkbox-1" class="select" />
-								</td>
-								<td class="order">1</td>
-								<td class="text-nowrap">Video 1</td>
-								<td class="text-nowrap">
-									<!-- <input type="text" placeholder="Youtube Key"> -->
-									<i class="fa-brands fa-youtube"></i>
-									<span class="ykey" data-toggle="modal" data-target="#addVideoPlayModal">youtube
-										key</span>
-								</td>
-								<td><i class="fa-solid fa-grip cur-mov"></i></td>
-								<td class="last">
-									<!-- <a href="#editEmployeeModal" class="edit" data-toggle="modal"><i class="material-icons"
-												data-toggle="tooltip" title="Edit">&#xE254;</i></a> -->
-									<!-- <a href="#deleteEmployeeModal" class="delete" data-toggle="modal"><span class=""
-											data-toggle="tooltip" title="Delete">Remove</span></a> -->
-									<button href="" class="deleteBtn btn btn-outline-danger shw-del"
-										style="border: 1px solid red;" data-toggle="tooltip" data-placement="right"
-										title="Remove">Remove</button>
-								</td>
-							</tr> {% endcomment %}
 						</tbody>
 					</table>
 				</div>
@@ -209,6 +192,7 @@
 								<label>Youtube Key</label>
 								<input name="youtubekey" id="ykey" type="text" class="form-control" required>
 							</div>
+							
 						</div>
 						<div class="modal-footer">
 							<button type="button" class="btn btn-default" data-dismiss="modal" data-toggle="tooltip"
