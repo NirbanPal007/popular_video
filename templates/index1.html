@@ -4,7 +4,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Document</title>
-  {%load staticfiles%}
+  {%load static%}
   <!-- Linking the main stylesheet  -->
   <link rel="stylesheet" href="{%static 'style/style1.css' %}" />
 
@@ -58,7 +58,6 @@
       </div>
       <!-- Table starts -->
       <form action="/deleteselected" method="post" style="width: 100%">
-        {% csrf_token %}
         <table id="example" class="table table-hover table-responsive-sm bg-white" style="width: 100%">
           <!-- Div for searchbar and buttons -->
           <div class="tablehead">
@@ -90,7 +89,7 @@
               </th>
               <th>Playlist name</th>
               <!-- <th>Show</th> -->
-              <th>Courses</th>
+              <th>Description</th>
               <th>Last Edited On</th>
               <th>Last Edited By</th>
               <th>Actions</th>
@@ -130,6 +129,23 @@
       </form>
     </div>
   </div>
+
+  {% block messages %}
+        <ul class="messages" id="messages-list">
+        {% if messages %}
+            {% for message in messages %}
+            <li>
+                {% if message.tags %}
+                     <div class="alert alert-{{ message.tags }} msg fade show" role="alert">{{ message }}</div>
+                {% else %}
+                    <div class="alert alert-info msg fade show" role="alert">{{ message }}</div>
+                {% endif %}
+            </li>
+            {% endfor %}
+        {% endif %}
+        </ul>
+{% endblock %}
+
   <!-- Linking the main script  -->
   <script src="{%static 'js/logic1.js' %}"></script>
 </body>

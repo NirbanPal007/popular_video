@@ -112,10 +112,17 @@ tableEl.addEventListener('click',onDeleteRow)
 $("#submitbn").click(function(){
     var ptitle = $("#title").val();
     var pdesc = $("#pdesc").val();
-    dictfinal = {
-        ptitle:ptitle,
-        pdesc:pdesc,
-        videos:dict
-    }
-    console.log(dictfinal);
+    var videos = JSON.stringify(dict)
+
+    $.ajax({
+        url: "add_playlist",
+        type: "POST",
+        data:{
+            'updated_by': 'ash',
+            'courses' : 1,
+            'ptitle': ptitle,
+            'pdesc' : pdesc,
+            'videos' : JSON.stringify(dict),
+        },
+    });
 })
