@@ -1,3 +1,15 @@
+function reorder_rows()
+{
+    var rows= document.getElementsByTagName('tr');
+
+    for (var i=0; i<rows.length; i++) {
+        var dataRow = rows[i].children[1];
+        dataRow.textContent = i+1;
+        console.log(i);
+      }
+
+}
+
 // edit modal off
 $('#myfrm').submit(function(e) {
     e.preventDefault();
@@ -71,7 +83,7 @@ function onAddWebsite(e) {
     var rowCount = table.rows.length;
     row.innerHTML+=  `
                 <td>
-                    <input type="checkbox" name="checkbox-1" id="checkbox-1" class="select"/>
+                    <input type="checkbox" name="checkbox-1" id="checkboxsmall" class="select"/>
                 </td>
                 <td id="order">${rowCount}</td>
                 <td>${vidname}</td>
@@ -79,7 +91,7 @@ function onAddWebsite(e) {
                 <span class="ykey" data-toggle="modal" data-target="#addVideoPlayModal">${ytkey}</span></td>
                 <td><i class="fa-solid fa-grip cur-mov"></i></td>
                 <td class="last">
-                    <button href="" class="deleteBtn btn btn-outline-danger shw-del" style="border: 1px solid red;" data-toggle="tooltip" data-placement="right" title="Remove">Remove</button>
+                    <button href="" onclick="onDeleteRow(event)" class="deleteBtn btn btn-outline-danger shw-del" style="border: 1px solid red;" data-toggle="tooltip" data-placement="right" title="Remove">Remove</button>
                 </td>	
         `;
         document.getElementById('myfrm').reset();
@@ -89,31 +101,17 @@ function onAddWebsite(e) {
 formEl.addEventListener('submit',onAddWebsite)
 
 
-
-function onDeleteRow(e){
-    if (!e.target.classList.contains("deleteBtn")) {
-        return;
-    }
-    const btn = e.target;
-    btn.closest('tr').remove();
-    
-    const idx = TableData.findIndex(({viname})=> viname === e.target.parentNode.parentNode.children[2].innerHTML);
-    TableData.splice(idx,1);
-}
-tableEl.addEventListener('click',onDeleteRow);
-
-
+var TableData = new Array();
 $("#submitbn").click(function(){ 
     var ptitle = $("#title").val(); 
-    var pdesc = $("#pdesc").val(); 
-
+    var pdesc = $("#pdesc").val();
+    
     if (ptitle==""||pdesc==""){
         alert("title and description both are mandatory");
         return false
     }
-    else{
-        var TableData = new Array(); 
-         
+    else{ 
+        
         $('#example tr').each(function(row, tr){ 
             TableData[row]={ 
                 "orderno" : $(tr).find('td:eq(1)').text(), 
@@ -121,19 +119,55 @@ $("#submitbn").click(function(){
                 "ykey" : $(tr).find('td:eq(3)').text().trim()
             } 
         });  
-     
+        
         dictfinal = { 
             ptitle:ptitle, 
             pdesc:pdesc, 
             videos:TableData 
         } 
-        console.log(dictfinal);       
+        $.ajax({
+            url: 'add_playlist',
+            type: "POST",
+            data:{
+                'updated_by': 'ash',
+                'courses' : 1,
+                'ptitle': ptitle,
+                'pdesc' : pdesc,
+                'videos' : JSON.stringify(TableData),
+            },
+        })
+        console.log(dictfinal);  
     }
- 
+    
 }) 
 
+function onDeleteRow(e){
+    // if (!e.target.classList.contains("deleteBtn")) {
+    //     return;
+    // }
+    const btn = e.target;
+    btn.closest('tr').remove();
 
+    // const idx = TableData.findIndex(({viname})=> viname === e.target.parentNode.parentNode.children[2].innerHTML);
+    // TableData.splice(idx,1);
+    reorder_rows();
 
+}
+// tableEl.addEventListener('click',onDeleteRow);
+
+function deleteAll(){
+    var selected_checkbox= document.querySelectorAll('#checkboxsmall');
+    console.log(selected_checkbox);
+    $(selected_checkbox).each(function() {
+        if(this.checked == true)
+        {
+            row= this.parentNode.parentNode;
+            // console.log(this)
+            row.remove();
+        } 
+    })
+    reorder_rows();
+}
 
 
 
@@ -165,3 +199,5 @@ jQuery.browser = {};
         jQuery.browser.version = RegExp.$1;
     }
 })();
+
+

@@ -59,6 +59,7 @@
 	<div class="container-fluid maindiv">
 		<form action="" method="" style="width:100%">
 			<div class="container-fluid">
+			{% for i in tech %}
 				<div class="playlist">
 					<h3>Playlist</h3>
 				</div>
@@ -82,7 +83,7 @@
 								<label for="title">Title:</label>
 							</div>
 							<div class="col-9">
-								<input type="text" name="title" class="shadw border-rela" id="title" required>
+								<input type="text" name="title" class="shadw border-rela" id="title" value='{{i.playlist_name}}' required>
 							</div>
 							<!-- </div> -->
 						</div>
@@ -93,7 +94,7 @@
 							<div class="col-9">
 								<!-- <input type="text" id="title"> -->
 								<textarea name="comment" id="pdesc" class="shadw border-rela" rows="7"
-									placeholder="Enter details about your playlist..." required></textarea>
+									placeholder="Enter details about your playlist..." required>{{i.description}}</textarea>
 								<!-- <input type="text" id="description"> -->
 							</div>
 							<!-- <div class="col">
@@ -109,24 +110,23 @@
 					<div class="col-md-3 px-3 py-2">
 						<div class="sidebutton btn-group-vertical" style="width:100%">
 
-							<button type="button" class="btn btn-success shadw-b" title="Save" id="submitbn">
-								<i class="fa-solid fa-floppy-disk marfont siz-mar"></i>Save</button>
+							<a href="/"><button type="button" class="btn btn-success shadw-b" title="Save" id="submitbn">
+								<i class="fa-solid fa-floppy-disk marfont siz-mar"></i>Save</button></a>
 
-							<button type="button" class="btn btn-primary shadw-b" title="Add"><i
-									class="fa-solid fa-circle-plus siz-mar"></i><span>Save and add</span></button>
+							<a href="/add"><button type="button" class="btn btn-primary shadw-b" title="Add" id="submitbn"><i
+									class="fa-solid fa-circle-plus siz-mar"></i><span>Save and add</span></button></a>
 
-							<button type="button" class="btn btn-danger shadw-b" title="Cancel"><a href="/"
-									style="color:white;"><i
-										class="fa-regular fa-circle-xmark marfont siz-mar"></i>Cancel</a></button>
+							<a href="/"><button type="button" class="btn btn-danger shadw-b" title="Cancel"><i
+										class="fa-regular fa-circle-xmark marfont siz-mar"></i>Cancel</button></a>
 						</div>
 					</div>
 
 				</div>
 				<div class="row" style="width: 100%;">
 					<div class="col-md-3 col-sm-12" style="padding: 0">
-
 					</div>
 				</div>
+			{% endfor %}
 			</div>
 			<hr>
 			<div class="container-fluid">
@@ -164,6 +164,21 @@
 								</tr>
 							</thead> -->
 						<tbody>
+						{% for i in video %}
+						<tr>
+							<td>
+								<input type="checkbox" name="checkbox-1" id="checkbox-1" class="select"/>
+							</td>
+							<td id="order">{{i.order_no}}</td>
+							<td>{{i.video_name}}</td>
+							<td><i class="fa-brands fa-youtube"></i>
+							<span class="ykey" data-toggle="modal" data-target="#addVideoPlayModal">{{i.video_key}}</span></td>
+							<td><i class="fa-solid fa-grip cur-mov"></i></td>
+							<td class="last">
+								<button href="" class="deleteBtn btn btn-outline-danger shw-del" style="border: 1px solid red;" data-toggle="tooltip" data-placement="right" title="Remove">Remove</button>
+							</td>
+						</tr>	
+						{% endfor %}		
 						</tbody>
 					</table>
 				</div>
@@ -219,7 +234,7 @@
 						<div class="modal-footer">
 							<button type="button" class="btn btn-default" data-dismiss="modal" data-toggle="tooltip"
 								data-placement="top" title="Cancel">Cancel</button>
-							<button href="" class="btn btn-danger deleteBtn" onclick="deleteRow();" data-dismiss="modal"
+							<button href="" class="btn btn-danger deleteBtn" onclick="deleteAll()" data-dismiss="modal"
 								data-toggle="tooltip" data-placement="top" title="Delete">Delete</button>
 						</div>
 					</form>

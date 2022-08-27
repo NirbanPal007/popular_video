@@ -52,10 +52,10 @@ class PopularVideosPlaylist(models.Model):
     courses = models.ManyToManyField(Course)
     # report=models.ForeignKey(Report,on_delete=models.CASCADE)
 class PopularVideo(models.Model):
-    video_name = models.CharField(max_length=255,null=False, blank=True)
-    video_key = models.TextField(null=False, blank=True)
-    order_no = models.IntegerField(null=False, blank=True, default=-1)
-    popular_videos_playlist  = models.ForeignKey(PopularVideosPlaylist,on_delete=models.CASCADE, null=False)
+    video_name = models.CharField(max_length=255)
+    video_key = models.TextField()
+    order_no = models.IntegerField(default=-1)
+    popular_videos_playlist  = models.ForeignKey(PopularVideosPlaylist,on_delete=models.CASCADE)
 
 
 
