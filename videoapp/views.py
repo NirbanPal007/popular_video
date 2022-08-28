@@ -23,7 +23,7 @@ def modify(request,id):
         'tech':tech,
         'video':video,
     }
-    return render(request,'index.html',context)
+    return render(request,'update.html',context)
 
 # def adding(request):
 #     if request.method == 'POST':
@@ -65,6 +65,93 @@ def deleteselected(request):
         PopularVideosPlaylist.objects.filter(id__in=id_list).delete()
     return redirect('index1')  
 
+
+# for updating
+@csrf_exempt
+def update_playlist(request):
+    print("This is update function")
+    # Function to modify video playlist and video to the database
+    playlist_id = request.POST.get('id')
+    updated_by = request.POST.get('updated_by')
+    courses = request.POST.get('courses')
+    ptitle = request.POST.get('ptitle')
+    pdesc = request.POST.get('pdesc')
+    videos = request.POST.get('videos')
+
+
+    # create the PopularVideoPlaylist object
+
+    entry=PopularVideosPlaylist.objects.get(id=playlist_id)
+    entry=PopularVideosPlaylist(playlist_name=ptitle, description=pdesc, updated_by=updated_by)
+    entry.save()
+    # play = PopularVideosPlaylist.objects.update_or_create(playlist_name=ptitle, description=pdesc, updated_by=updated_by)
+
+    # For loop to add the course as a m2m object
+    for i in courses:
+        entry.courses.add(i)
+
+    # Fetches the ID of the Model object that was created above
+   
+    # import pdb; pdb.set_trace()
+
+    video_dict = json.loads(videos)
+
+    # Loop to add all videos to the PopularVideo model
+    for i in video_dict:
+
+        # name and key are the values from the dict to create the model object
+        name = i.get('viname')
+        key = i.get('ykey')
+        order = i.get('orderno')
+        vid = PopularVideo(video_name=name, video_key=key, order_no=order,popular_videos_playlist_id=playlist_id)
+        vid.save()
+        # import pdb; pdb.set_trace()
+    messages.add_message(request, messages.INFO, 'Data added SUCCESSFULLY!')
+    return redirect('update_playlist')
+
+
+     
+# @csrf_exempt
+# def add_playlist(request,id):
+#     # Function to add video playlist and video to the database
+
+#     updated_by = request.POST.get('updated_by')
+#     courses = request.POST.get('courses')
+#     ptitle = request.POST.get('ptitle')
+#     pdesc = request.POST.get('pdesc')
+#     videos = request.POST.get('videos')
+
+#     # create the PopularVideoPlaylist object
+#     entry=PopularVideosPlaylist.objects.get(id=id)
+#     entry=PopularVideosPlaylist(playlist_name=ptitle, description=pdesc, updated_by=updated_by)
+#     entry.save()
+#     # play = PopularVideosPlaylist.objects.update(id = id,playlist_name=ptitle, description=pdesc, updated_by=updated_by)
+
+#     # For loop to add the course as a m2m object
+#     # for i in courses:
+#     #     play.courses.add(i)
+
+#     # Fetches the ID of the Model object that was created above
+#     playlist_id = entry.pk
+#     # import pdb; pdb.set_trace()
+
+#     video_dict = json.loads(videos)
+
+#     # Loop to add all videos to the PopularVideo model
+#     for i in video_dict:
+
+#         # name and key are the values from the dict to create the model object
+#         name = i.get('viname')
+#         key = i.get('ykey')
+#         order = i.get('orderno')
+#         vid = PopularVideo(video_name=name, video_key=key, order_no=order,popular_videos_playlist_id=playlist_id)
+#         vid.save()
+#         # import pdb; pdb.set_trace()
+#     messages.add_message(request, messages.INFO, 'Data added SUCCESSFULLY!')
+#     return redirect('index1')
+
+
+
 @csrf_exempt
 def add_playlist(request):
     # Function to add video playlist and video to the database
@@ -76,7 +163,7 @@ def add_playlist(request):
     videos = request.POST.get('videos')
 
     # create the PopularVideoPlaylist object
-    play = PopularVideosPlaylist.objects.update_or_create(playlist_name=ptitle, description=pdesc, updated_by=updated_by)
+    play = PopularVideosPlaylist.objects.create(playlist_name=ptitle, description=pdesc, updated_by=updated_by)
 
     # For loop to add the course as a m2m object
     for i in courses:
