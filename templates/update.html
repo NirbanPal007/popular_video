@@ -57,7 +57,29 @@
 		</div>
 	</header>
 	<div class="container-fluid maindiv">
-		<form action="" method="" style="width:100%">
+		<form method="get" style="width:100%" id="playlistform">
+			<div class="mainform">
+				<div class="formplaylist">
+					{{form.non_field_errors}}
+				<div class="fieldWrapper">
+					{{form.title.errors}}
+					<label for="{{form.title_for_label}}">Title: </label>
+					{{form.title}}
+				</div>	
+				<div class="fieldWrapper ">
+					{{form.description.errors}}
+					<label for="{{form.description_for_label}}">Description: </label>
+					{{form.description}}
+				</div>
+				<div class="fieldWrapper ">
+					{{form.courses.errors}}
+					<label for="{{form.courses_for_label}}">Courses: </label>
+					{{form.courses}}
+				</div>
+				</div>
+			</div>
+			
+			
 			<div class="container-fluid">
 			{% for i in tech %}
 				<div class="playlist">
@@ -111,11 +133,14 @@
 					<div class="col-md-3 px-3 py-2">
 						<div class="sidebutton btn-group-vertical" style="width:100%">
 
-							<a href="/"><button type="button" class="btn btn-success shadw-b" title="Save" id="submitbn">
-								<i class="fa-solid fa-floppy-disk marfont siz-mar"></i>Save</button></a>
+							{% comment %} <a href="/"><button type="submit" class="btn btn-success shadw-b" title="Save" form="playlistform">
+								<i class="fa-solid fa-floppy-disk marfont siz-mar"></i>Edit</button></a> {% endcomment %}
 
-							<a href="/add"><button type="button" class="btn btn-primary shadw-b" title="Add" id="submitbn"><i
-									class="fa-solid fa-circle-plus siz-mar"></i><span>Save and add</span></button></a>
+							<input type="submit" value="submit">	
+							
+
+							{% comment %} <a href="/add"><button type="button" class="btn btn-primary shadw-b" title="Add" id="submitbn"><i
+									class="fa-solid fa-circle-plus siz-mar"></i><span>Save and add</span></button></a> {% endcomment %}
 
 							<a href="/"><button type="button" class="btn btn-danger shadw-b" title="Cancel"><i
 										class="fa-regular fa-circle-xmark marfont siz-mar"></i>Cancel</button></a>
@@ -190,7 +215,7 @@
 		<div id="addVideoModal" class="modal fade">
 			<div class="modal-dialog">
 				<div class="modal-content">
-					<form action="" method="post" id="myfrm">
+					<form action="/" method="post" id="myfrm">
 						{% csrf_token %}
 						<div class="modal-header">
 							<h4 class="modal-title">Add Video</h4>
@@ -213,7 +238,7 @@
 						<div class="modal-footer">
 							<button type="button" class="btn btn-default" data-dismiss="modal" data-toggle="tooltip"
 								data-placement="top" title="Cancel">Cancel</button>
-							<button type="submit" class="btn btn-success" value="Add" data-toggle="tooltip"
+							<button type="submit" form ="myfrm" class="btn btn-success" value="Add" data-toggle="tooltip"
 								data-placement="top" title="Submit">Submit</button>
 						</div>
 					</form>

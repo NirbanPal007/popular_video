@@ -514,8 +514,20 @@ h3,h2{
 }
 }
 
-
-
+.formplaylist{
+    display: flex;
+    flex-direction: column;
+    margin: 3% 3%;
+}
+.fieldWrapper label{
+    width: 100px;
+}
+.fieldWrapper{
+    margin-bottom: 2%;
+}
+.mainform{
+    width: 50%;
+}
 
 
 

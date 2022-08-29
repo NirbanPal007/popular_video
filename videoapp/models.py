@@ -43,17 +43,17 @@ class Course(models.Model):
 
 
 class PopularVideosPlaylist(models.Model):
-    playlist_name=models.CharField(max_length=255, null=False, blank=True)
-    description=models.TextField(null=False, blank=True)
+    playlist_name=models.CharField(max_length=255, null=False, blank=False)
+    description=models.TextField(null=False, blank=False)
     # Timestamp
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    updated_by = models.CharField(max_length=30,null=False, blank=True)
+    updated_by = models.CharField(max_length=30,null=False, blank=False)
     courses = models.ManyToManyField(Course)
     # report=models.ForeignKey(Report,on_delete=models.CASCADE)
 class PopularVideo(models.Model):
-    video_name = models.CharField(max_length=255)
-    video_key = models.TextField()
+    video_name = models.CharField(max_length=255,null=False, blank=False)
+    video_key = models.TextField(null=False, blank=False)
     order_no = models.IntegerField(default=-1)
     popular_videos_playlist  = models.ForeignKey(PopularVideosPlaylist,on_delete=models.CASCADE)
 

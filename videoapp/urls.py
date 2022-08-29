@@ -12,5 +12,7 @@ urlpatterns = [
     path('deleteselected',views.deleteselected,name="deleteselected"),              
     path('add_playlist', views.add_playlist, name='add_playlist'),
     path('modify/<int:id>/update_playlist', views.update_playlist, name='update_playlist'),
+    path('Edit_playlist/<int:id>', views.edit_form, name='edit_playlist'),
+    
     # path('add_playlist', views.add_playlist, name='add_playlist'),
 ]
