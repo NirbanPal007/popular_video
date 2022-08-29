@@ -102,10 +102,10 @@ formEl.addEventListener('submit',onAddWebsite)
 
 
 var TableData = new Array();
-$("#submitbn").click(function(){ 
-    var ptitle = $("#title").val(); 
+$("#submitbtn").click(function(){ 
+    var object_id = $("#object_id").val(); 
+    var ptitle = $("#ptitle").val(); 
     var pdesc = $("#pdesc").val();
-    
     if (ptitle==""||pdesc==""){
         alert("title and description both are mandatory");
         return false
@@ -130,8 +130,8 @@ $("#submitbn").click(function(){
             url: 'update_playlist',
             type: "POST",
             data:{
-                'id': id,
-                'updated_by': 'ash',
+                'id' : object_id,
+                'updated_by' : 'ash',
                 'courses' : 1,
                 'ptitle': ptitle,
                 'pdesc' : pdesc,

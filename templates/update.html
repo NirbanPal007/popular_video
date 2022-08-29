@@ -6,26 +6,22 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Document</title>
-	{%load staticfiles%}
+	{%load static%}
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 	<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-	{% comment %} <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script> {% endcomment %}
 	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"
 		integrity="sha256-T0Vest3yCU7pafRw9r+settMBX6JkKN06dqBnpQ8d30=" crossorigin="anonymous"></script>
 	<link rel="stylesheet" href="{% static 'style/style.css' %}">
 
 
-	{% comment %} <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script> {% endcomment %}
-	{% comment %} <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.24/themes/smoothness/jquery-ui.css" />
-	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.24/jquery-ui.min.js"></script> {% endcomment %}
-
-
-
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 	<link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/dataTables.bootstrap.min.css">
-	{% comment %} <script src="https://code.jquery.com/jquery-3.5.1.js"></script> {% endcomment %}
 	<script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
 	<script src="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap.min.js"></script>
+
+	<!-- For multi select in dropdown -->
+	<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+	<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
 
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round">
@@ -36,7 +32,6 @@
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 	<script src="https://kit.fontawesome.com/735bfd37ee.js" crossorigin="anonymous"></script>
 	<!-- for nav -->
-	<!-- <link rel="stylesheet" href="bootstrap.404e2a97cc5c.css" type="text/css" media="all"> -->
 	<link rel="stylesheet" href=" {%static 'style/custom.86cdb688a03d.css' %}" media="all">
 </head>
 
@@ -69,49 +64,32 @@
 
 
 					<!-- Column for Labels -->
-					<!-- <div class="col">
-							<label for="title">Description:</label>
-						</div> -->
-					<!-- Column for labels and input elements -->
-					<!-- <div class="col-md-9 col-sm-12"> -->
 					<div class="col-md-9 resp-up">
 						<!-- Input for Title -->
 						<div class="row my-4">
-							<!-- <div class="box1"> -->
-							<!-- <div class="title1" style="width:20%;">Title:</div> -->
-							<input type="text" name="title" class="shadw border-rela" id="title" value='{{i.id}}' hidden="true">
+							<input type="text" name="title" class="shadw border-rela" id="object_id" value='{{i.id}}' hidden="true">
 							<div class="col-3">
 								<label for="title">Title:</label>
 							</div>
 							<div class="col-9">
-								<input type="text" name="title" class="shadw border-rela" id="title" value='{{i.playlist_name}}' required>
+								<input type="text" name="title" class="shadw border-rela" id="ptitle" value='{{i.playlist_name}}' required>
 							</div>
-							<!-- </div> -->
 						</div>
 						<div class="row my-4">
 							<div class="col-3">
 								<label for="description">Description:</label>
 							</div>
 							<div class="col-9">
-								<!-- <input type="text" id="title"> -->
 								<textarea name="comment" id="pdesc" class="shadw border-rela" rows="7"
 									placeholder="Enter details about your playlist..." required>{{i.description}}</textarea>
-								<!-- <input type="text" id="description"> -->
 							</div>
-							<!-- <div class="col">
-									<label for="description">Description</label>
-								</div>
-								<div class="col-10">
-								</div> -->
 						</div>
-						<!-- <div class="title1" style="width:20%;"><span>Description:</span></div>
-							<div class="inp" style="width:80%;"><input type="text" style="height:80px;width:90%;"></div> -->
 					</div>
 					<!-- Column for buttons -->
 					<div class="col-md-3 px-3 py-2">
 						<div class="sidebutton btn-group-vertical" style="width:100%">
 
-							<a href="/"><button type="button" class="btn btn-success shadw-b" title="Save" id="submitbn">
+							<a href="/"><button type="button" class="btn btn-success shadw-b" title="Save" id="submitbtn">
 								<i class="fa-solid fa-floppy-disk marfont siz-mar"></i>Save</button></a>
 
 							<a href="/add"><button type="button" class="btn btn-primary shadw-b" title="Add" id="submitbn"><i
@@ -158,12 +136,6 @@
 						</div>
 					</div>
 					<table id="example" class="table table-responsive-sm table-hover" style="width:100%">
-						<!-- <thead>
-								<tr>
-									<th>
-									</th>
-								</tr>
-							</thead> -->
 						<tbody>
 						{% for i in video %}
 						<tr>
@@ -196,10 +168,6 @@
 							<h4 class="modal-title">Add Video</h4>
 						</div>
 						<div class="modal-body">
-							<!-- <div class="form-group">
-										<label>Serial Number</label>
-										<input name="serialno" type="number" class="form-control" disabled>
-									</div> -->
 							<div class="form-group">
 								<label>Video name</label>
 								<input name="videoname" id="vname" type="text" class="form-control" required>
@@ -252,11 +220,6 @@
 						<h4 class="modal-title">Watch Video</h4>
 					</div>
 					<div class="modal-body">
-						<!-- <iframe id="cls" width="100%" height="315" src="https://www.youtube.com/embed/25k7Zs_c5FM"
-							title="YouTube video player" frameborder="0"
-							allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-							allowfullscreen></iframe> -->
-
 					</div>
 					<div class="modal-footer">
 						<button type="button" class="btn btn-default" data-dismiss="modal" data-toggle="tooltip"

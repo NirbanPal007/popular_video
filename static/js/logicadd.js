@@ -1,3 +1,8 @@
+$("#all_courses").select2({
+    placeholder: "Select Courses",
+    maximumSelectionLength: 5,
+});
+
 function reorder_rows()
 {
     var rows= document.getElementsByTagName('tr');
@@ -105,6 +110,8 @@ var TableData = new Array();
 $("#submitbn").click(function(){ 
     var ptitle = $("#title").val(); 
     var pdesc = $("#pdesc").val();
+    var course = $("#all_courses").val();
+    // debugger
     
     if (ptitle==""||pdesc==""){
         alert("title and description both are mandatory");
@@ -130,10 +137,10 @@ $("#submitbn").click(function(){
             type: "POST",
             data:{
                 'updated_by': 'ash',
-                'courses' : 1,
                 'ptitle': ptitle,
                 'pdesc' : pdesc,
                 'videos' : JSON.stringify(TableData),
+                'course' : course
             },
         })
         console.log(dictfinal);  
