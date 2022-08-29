@@ -2,6 +2,8 @@ from django.contrib import admin
 from django.urls import path,include
 from videoapp import views
 
+app_name = "videoapp"
+
 urlpatterns = [
    
     path('',views.index,name="index1"),
@@ -11,8 +13,9 @@ urlpatterns = [
     path('delete/<int:id>/',views.delete,name="delete"),
     path('deleteselected',views.deleteselected,name="deleteselected"),              
     path('add_playlist', views.add_playlist, name='add_playlist'),
-    path('modify/<int:id>/update_playlist', views.update_playlist, name='update_playlist'),
-    path('Edit_playlist/<int:id>', views.edit_form, name='edit_playlist'),
+
+    # path('modify/<int:id>/update_playlist', views.update_playlist, name='update_playlist'),
     
+    path('modify/<int:id>/update_playlist', views.update_playlist_fresh, name='update_playlist'),
     # path('add_playlist', views.add_playlist, name='add_playlist'),
 ]

@@ -60,6 +60,29 @@ $(document).ready(function() {
     $("#addVideoPlayModal").on('show.bs.modal', function() {
         $("#cls").attr('src', url);
     });
+
+
+    //For displaying selected courses
+    selectedCourse=[];
+    course=$('.presentcourses ul li').each(function(){
+        val=$(this).text()
+        selectedCourse.push(val);
+    });
+    // console.log(selectedCourse)
+    // courses=document.querySelectorAll('#allcourses');
+    $('#all_courses option').each(function() {
+        value=$(this).val()
+        if(value>-1)
+        {
+            console.log(value)
+            if(jQuery.inArray(value,selectedCourse)>-1)
+            {
+                $(this).css('color','blueviolet');
+            } 
+        }
+       
+                           
+    });
 });
 
 //for tooltip
@@ -102,10 +125,10 @@ formEl.addEventListener('submit',onAddWebsite)
 
 
 var TableData = new Array();
-$("#submitbn").click(function(){ 
-    var ptitle = $("#title").val(); 
+$("#submitbtn").click(function(){ 
+    var object_id = $("#object_id").val(); 
+    var ptitle = $("#ptitle").val(); 
     var pdesc = $("#pdesc").val();
-    
     if (ptitle==""||pdesc==""){
         alert("title and description both are mandatory");
         return false
@@ -130,8 +153,8 @@ $("#submitbn").click(function(){
             url: 'update_playlist',
             type: "POST",
             data:{
-                'id': id,
-                'updated_by': 'ash',
+                'id' : object_id,
+                'updated_by' : 'ash',
                 'courses' : 1,
                 'ptitle': ptitle,
                 'pdesc' : pdesc,
