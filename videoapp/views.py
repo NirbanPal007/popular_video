@@ -1,6 +1,3 @@
-from asyncio.windows_events import NULL
-from xml.etree.ElementTree import Comment
-from django.db import reset_queries
 from django.http import JsonResponse
 from django.shortcuts import redirect, render,HttpResponse
 from videoapp.models import PopularVideosPlaylist,PopularVideo,Course
@@ -136,6 +133,9 @@ def add_playlist(request):
 
     # import pdb; pdb.set_trace()
 
+    for i in courses:
+        course = Course.objects.filter(id=i)
+        play.courses.add(*course)
     # Fetches the ID of the Model object that was created above
     playlist_id = play.pk
 
@@ -150,10 +150,9 @@ def add_playlist(request):
         order = i.get('orderno')
         vid = PopularVideo(video_name=name, video_key=key, order_no=order,popular_videos_playlist_id=playlist_id)
         vid.save()
-        import pdb; pdb.set_trace()
     messages.add_message(request, messages.INFO, 'Data added SUCCESSFULLY!')
     time.sleep(3)
-    return redirect('index1')
+    return redirect('videoapp:index1')
 
 
 
