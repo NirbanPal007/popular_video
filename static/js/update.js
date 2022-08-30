@@ -70,14 +70,19 @@ $(document).ready(function() {
     });
     // console.log(selectedCourse)
     // courses=document.querySelectorAll('#allcourses');
-    $('#all_courses option').each(function() {
+    var course_list= document.querySelector('.select2-selection--multiple ul');
+    console.log(course_list)
+    $('#selected_courses option').each(function() {
         value=$(this).val()
         if(value>-1)
         {
             console.log(value)
             if(jQuery.inArray(value,selectedCourse)>-1)
             {
-                $(this).css('color','blueviolet');
+                $(this).attr("selected","selected");
+                var course_name=$(this).text();
+                course_list.innerHTML+="<li class='select2-selection__choice' title='All Courses' data-select2-id='select2-data-3-g90t'><button type='button' class='select2-selection__choice__remove' tabindex='-1' title='Remove item' aria-label='Remove item' aria-describedby='select2-selected_courses-container-choice-a1ku--1'><span aria-hidden='true'> x </span></button><span class='select2-selection__choice__display' id='select2-selected_courses-container-choice-a1ku--1'>All Courses</span></li>"
+                // $('.select2-selection--multiple ul li span').text(course_name)
             } 
         }
        
@@ -227,3 +232,12 @@ jQuery.browser = {};
 })();
 
 
+
+$("#selected_courses").select2({
+    placeholder: "Select Courses",
+    maximumSelectionLength: 5,
+});
+
+
+
+{/* <ul class="select2-selection__rendered" id="select2-selected_courses-container"></ul> */}

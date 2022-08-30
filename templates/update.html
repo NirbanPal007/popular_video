@@ -19,11 +19,6 @@
 	<script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
 	<script src="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap.min.js"></script>
 
-	<!-- For multi select in dropdown -->
-	<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
-	<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
-
-
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round">
 	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -31,11 +26,13 @@
 	
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 	<script src="https://kit.fontawesome.com/735bfd37ee.js" crossorigin="anonymous"></script>
+
 	<!-- For multi select in dropdown -->
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 	<!-- for nav -->
 	<link rel="stylesheet" href=" {%static 'style/custom.86cdb688a03d.css' %}" media="all">
+
 </head>
 
 <body>
@@ -91,7 +88,7 @@
 							<div class="col-3">
 							  <label for="description">Course:</label>
 							</div>
-							<select id="all_courses" multiple>
+							<select id="selected_courses" multiple>
 							  <option value = -1 selected>
 							  All Courses
 							  </option>
@@ -100,6 +97,7 @@
 							  <option value="{{ i.id}}">{{ i.name }}</option>
 							  {% endfor %}
 							</select>
+							
 						  </div>
 						  <div class="presentcourses" style="display:none">
 							<ul>

@@ -514,7 +514,6 @@ h3,h2{
 }
 }
 
-<<<<<<< HEAD
 .formplaylist{
     display: flex;
     flex-direction: column;
@@ -529,13 +528,16 @@ h3,h2{
 .mainform{
     width: 50%;
 }
-=======
-#all_courses{
+
+#selected_courses{
     width: 61%;
     margin-left: 26.6%;
 }
 
->>>>>>> c398ad284d1520e4aee8919a60dd09cb39534fb1
+.select2-container{
+    margin-left: 1.75% !important;
+}
+
 
 
 

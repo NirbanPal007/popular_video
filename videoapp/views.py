@@ -126,7 +126,7 @@ def add_playlist(request):
     # Function to add video playlist and video to the database
 
     updated_by = request.POST.get('updated_by')
-    courses = request.POST.getlist('course[]')
+    selected_courses = request.POST.get('course')
     ptitle = request.POST.get('ptitle')
     pdesc = request.POST.get('pdesc')
     videos = request.POST.get('videos')
@@ -150,9 +150,18 @@ def add_playlist(request):
         order = i.get('orderno')
         vid = PopularVideo(video_name=name, video_key=key, order_no=order,popular_videos_playlist_id=playlist_id)
         vid.save()
-        import pdb; pdb.set_trace()
+        # import pdb; pdb.set_trace()
+
+
+
+    #map courses to playlist
+
+    
+    for i in selected_courses:
+        play.courses.add(i)
+
     messages.add_message(request, messages.INFO, 'Data added SUCCESSFULLY!')
-    time.sleep(3)
+    time.sleep(10)
     return redirect('index1')
 
 

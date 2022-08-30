@@ -110,9 +110,13 @@ var TableData = new Array();
 $("#submitbn").click(function(){ 
     var ptitle = $("#title").val(); 
     var pdesc = $("#pdesc").val();
-    var course = $("#all_courses").val();
+    var course = [];
+    $("#all_courses option").each(function() {
+        value=$(this).val();
+        course.push(value);
+    })
     // debugger
-    
+    console.log(course)
     if (ptitle==""||pdesc==""){
         alert("title and description both are mandatory");
         return false
@@ -126,7 +130,7 @@ $("#submitbn").click(function(){
                 "ykey" : $(tr).find('td:eq(3)').text().trim()
             } 
         });  
-        
+        console.log(TableData)
         dictfinal = { 
             ptitle:ptitle, 
             pdesc:pdesc, 
