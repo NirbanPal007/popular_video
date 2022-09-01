@@ -109,6 +109,7 @@ function onAddWebsite(e) {
     
     var row = table.insertRow(rowCount);
     var rowCount = table.rows.length;
+    var isdeleted=0
     row.innerHTML+=  `
                 <td>
                     <input type="checkbox" name="checkbox-1" id="checkboxsmall" class="select"/>
@@ -117,12 +118,14 @@ function onAddWebsite(e) {
                 <td>${vidname}</td>
                 <td><i class="fa-brands fa-youtube"></i>
                 <span class="ykey" data-toggle="modal" data-target="#addVideoPlayModal">${ytkey}</span></td>
+                <td>${isdeleted}</td>
                 <td><i class="fa-solid fa-grip cur-mov"></i></td>
                 <td class="last">
                     <button href="" onclick="onDeleteRow(event)" class="deleteBtn btn btn-outline-danger shw-del" style="border: 1px solid red;" data-toggle="tooltip" data-placement="right" title="Remove">Remove</button>
                 </td>	
         `;
         document.getElementById('myfrm').reset();
+        
         
 }
 
@@ -135,7 +138,7 @@ $("#submitbtn").click(function(){
     var object_id = $("#object_id").val(); 
     var ptitle = $("#ptitle").val(); 
     var pdesc = $("#pdesc").val();
-    var course = [].filter.call(selected_course.options , option=>option.selected).map(option=>option.value);
+    // var course = [].filter.call(selected_course.options , option=>option.selected).map(option=>option.value);
 
     if (ptitle==""||pdesc==""){
         alert("title and description both are mandatory");
@@ -144,9 +147,8 @@ $("#submitbtn").click(function(){
     else{ 
         
         $('#example tr').each(function(row, tr){ 
-            is_deleted=$(tr).find('td:eq(4)').text();
-            if(is_deleted==0)
-            {
+            is_deleted = $(tr).find('td:eq(4)').text();
+            if (is_deleted==0){
                 TableData[row]={ 
                     "orderno" : $(tr).find('td:eq(1)').text(), 
                     "viname" :$(tr).find('td:eq(2)').text(), 
@@ -170,7 +172,7 @@ $("#submitbtn").click(function(){
             data:{
                 'id' : object_id,
                 'updated_by' : 'ash',
-                'course' : course,
+                'course' : 1,
                 'ptitle': ptitle,
                 'pdesc' : pdesc,
                 'videos' : JSON.stringify(TableData),
@@ -187,9 +189,18 @@ function onDeleteRow(e){
     //     return;
     // }
     const btn = e.target;
-    btn.closest('tr').remove();
-    reorder_rows();
 
+    var sel=btn.parentNode.parentNode.children[4];
+    console.log(sel)
+    sel.innerHTML='1'
+    // $('#example tr').find('td:eq(4)').html("1");
+
+
+    
+
+    btn.closest('tr').remove();
+
+    reorder_rows();
 }
 // tableEl.addEventListener('click',onDeleteRow);
 
@@ -199,8 +210,9 @@ function deleteAll(){
     $(selected_checkbox).each(function() {
         if(this.checked == true)
         {
-            row= this.parentNode.parentNode;
+            var row= this.parentNode.parentNode;
             // console.log(this)
+            row.children[4].innerHTML='1';
             row.remove();
         } 
     })

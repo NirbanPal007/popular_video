@@ -167,17 +167,17 @@
 						{% for i in video %}
 						<tr>
 							<td>
-								<input type="checkbox" name="checkbox-1" id="checkbox-1" class="select"/>
+								<input type="checkbox" name="checkbox-1" id="checkboxsmall" class="select"/>
 							</td>
 							<td id="order">{{i.order_no}}</td>
 							<td>{{i.video_name}}</td>
 							<td><i class="fa-brands fa-youtube"></i>
 							<span class="ykey" data-toggle="modal" data-target="#addVideoPlayModal">{{i.video_key}}</span></td>
+							<td>0</td>
 							<td><i class="fa-solid fa-grip cur-mov"></i></td>
 							<td class="last">
-								<button href="" class="deleteBtn btn btn-outline-danger shw-del" style="border: 1px solid red;" data-toggle="tooltip" data-placement="right" title="Remove" onclick="onDeleteRow(event);">Remove</button>
+								<button type="button" href="" class="deleteBtn btn btn-outline-danger shw-del" style="border: 1px solid red;" data-toggle="tooltip" data-placement="right" title="Remove" onclick="onDeleteRow(event);">Remove</button>
 							</td>
-							<td>0</td>
 						</tr>	
 						{% endfor %}		
 						</tbody>
