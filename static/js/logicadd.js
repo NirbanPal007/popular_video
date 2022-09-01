@@ -94,6 +94,7 @@ function onAddWebsite(e) {
                 <td>${vidname}</td>
                 <td><i class="fa-brands fa-youtube"></i>
                 <span class="ykey" data-toggle="modal" data-target="#addVideoPlayModal">${ytkey}</span></td>
+                <td>0</td>
                 <td><i class="fa-solid fa-grip cur-mov"></i></td>
                 <td class="last">
                     <button href="" onclick="onDeleteRow(event)" class="deleteBtn btn btn-outline-danger shw-del" style="border: 1px solid red;" data-toggle="tooltip" data-placement="right" title="Remove">Remove</button>
@@ -110,11 +111,10 @@ var TableData = new Array();
 $("#submitbn").click(function(){ 
     var ptitle = $("#title").val(); 
     var pdesc = $("#pdesc").val();
-    var course = [];
-    $("#all_courses option").each(function() {
-        value=$(this).val();
-        course.push(value);
-    })
+    var selected_course= document.querySelector('#all_courses');
+    var course = [].filter.call(selected_course.options , option=>option.selected).map(option=>option.value);
+   
+    
     // debugger
     console.log(course)
     if (ptitle==""||pdesc==""){
@@ -127,7 +127,8 @@ $("#submitbn").click(function(){
             TableData[row]={ 
                 "orderno" : $(tr).find('td:eq(1)').text(), 
                 "viname" :$(tr).find('td:eq(2)').text(), 
-                "ykey" : $(tr).find('td:eq(3)').text().trim()
+                "ykey" : $(tr).find('td:eq(3)').text().trim(),
+                "is_deleted":$(tr).find('td:eq(4)').text(),
             } 
         });  
         console.log(TableData)

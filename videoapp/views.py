@@ -1,6 +1,3 @@
-from asyncio.windows_events import NULL
-from xml.etree.ElementTree import Comment
-from django.db import reset_queries
 from django.http import JsonResponse
 from django.shortcuts import redirect, render,HttpResponse
 from videoapp.models import PopularVideosPlaylist,PopularVideo,Course
@@ -11,6 +8,7 @@ from videoapp.models import PopularVideosPlaylist,PopularVideo, Course
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib import messages
 import json, time
+from django.core import serializers
 
 # Create your views here.
 
@@ -95,7 +93,6 @@ def update_playlist_fresh(request, id):
     pdesc = request.POST.get('pdesc')
     videos = request.POST.get('videos')
 
-
     # create the PopularVideoPlaylist object
     
 
@@ -105,28 +102,40 @@ def update_playlist_fresh(request, id):
     video_dict = json.loads(videos)
 
     # Loop to add all videos to the PopularVideo model
-    for i in video_dict:
+    # for i in video_dict:
 
         # name and key are the values from the dict to create the model object
         # import pdb; pdb.set_trace()
-        existing_videos = PopularVideo.objects.filter(popular_videos_playlist__courses__id = courses)
-        name = i.get('viname')
-        key = i.get('ykey')
-        order = i.get('orderno')
-        if not PopularVideo.objects.filter(popular_videos_playlist__courses__id = courses, video_name=name).exists():
-            import pdb; pdb.set_trace()
-            vid = PopularVideo(video_name=name, video_key=key, order_no=order,popular_videos_playlist_id=playlist_id)
-            vid.save()
-    messages.add_message(request, messages.INFO, 'Data added SUCCESSFULLY!')
-    return redirect('update_playlist')
+        # existing_videos = PopularVideo.objects.filter(popular_videos_playlist__courses__id = courses)
+        # name = i.get('viname')
+        # key = i.get('ykey')
+        # order = i.get('orderno')
+        # if not PopularVideo.objects.filter(popular_videos_playlist__courses__id = courses, video_name=name).exists():
+        #     import pdb; pdb.set_trace()
+        #     vid = PopularVideo(video_name=name, video_key=key, order_no=order,popular_videos_playlist_id=playlist_id)
+        #     vid.save()
+    PopularVideo.objects.filter(popular_videos_playlist_id=playlist_id).delete()
+    for i in video_dict:
+        name=i.get('viname')
+        key=i.get('ykey')
+        order=i.get('orderno')
+        # is_deleted=i.get('is_deleted')
+        # if (key not in existing_videos):
+        video= PopularVideo.objects.create(video_name=name,video_key=key , order_no=order, popular_videos_playlist_id=playlist_id)
+
+
+
+    messages.add_message(request, messages.INFO, 'Data edited SUCCESSFULLY!')
+    return redirect('index1')
 
 
 @csrf_exempt
+
 def add_playlist(request):
     # Function to add video playlist and video to the database
 
     updated_by = request.POST.get('updated_by')
-    selected_courses = request.POST.get('course')
+    courses = request.POST.getlist('course[]')
     ptitle = request.POST.get('ptitle')
     pdesc = request.POST.get('pdesc')
     videos = request.POST.get('videos')
@@ -136,6 +145,9 @@ def add_playlist(request):
 
     # import pdb; pdb.set_trace()
 
+    for i in courses:
+        course = Course.objects.filter(id=i)
+        play.courses.add(*course)
     # Fetches the ID of the Model object that was created above
     playlist_id = play.pk
 
@@ -150,31 +162,28 @@ def add_playlist(request):
         order = i.get('orderno')
         vid = PopularVideo(video_name=name, video_key=key, order_no=order,popular_videos_playlist_id=playlist_id)
         vid.save()
-        # import pdb; pdb.set_trace()
-
-
-
-    #map courses to playlist
-
-    
-    for i in selected_courses:
-        play.courses.add(i)
-
     messages.add_message(request, messages.INFO, 'Data added SUCCESSFULLY!')
-    time.sleep(10)
-    return redirect('index1')
+    time.sleep(3)
+    return redirect('videoapp:index1')
 
 
 
 
 
+# def fetch_data(request,id):
+#     playlist_name=list(PopularVideosPlaylist.objects.filter(id=id).values('playlist_name'))
+#     playlist_decsription=list(PopularVideosPlaylist.objects.filter(id=id).values('description'))
+#     videos=list(PopularVideo.objects.filter(popular_videos_playlist=id).values('video_name','video_key'))
 
+#     data={
+#         'name':playlist_name[0],
+#         'description':playlist_decsription[0],
+#         'videos':videos
 
+#     }
+#     # json_data=json.dumps(data,indent=4)
 
-
-
-
-
+#     return JsonResponse(data)
 
 
 

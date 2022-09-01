@@ -16,6 +16,8 @@ urlpatterns = [
 
     # path('modify/<int:id>/update_playlist', views.update_playlist, name='update_playlist'),
     
-    path('modify/<int:id>/update_playlist', views.update_playlist_fresh, name='update_playlist'),
+    path('modify/<int:id>/update_playlist', views.update_playlist_fresh, name='update_playlist_fresh'),
     # path('add_playlist', views.add_playlist, name='add_playlist'),
+
+    # path('fetch/<int:id>',views.fetch_data,name='fetch_data'),
 ]

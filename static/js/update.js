@@ -81,7 +81,7 @@ $(document).ready(function() {
             {
                 $(this).attr("selected","selected");
                 var course_name=$(this).text();
-                course_list.innerHTML+="<li class='select2-selection__choice' title='All Courses' data-select2-id='select2-data-3-g90t'><button type='button' class='select2-selection__choice__remove' tabindex='-1' title='Remove item' aria-label='Remove item' aria-describedby='select2-selected_courses-container-choice-a1ku--1'><span aria-hidden='true'> x </span></button><span class='select2-selection__choice__display' id='select2-selected_courses-container-choice-a1ku--1'>All Courses</span></li>"
+                course_list.innerHTML+=`<li class="select2-selection__choice" title="All Courses" data-select2-id="select2-data-3-g90t"><button type="button" class="select2-selection__choice__remove" tabindex="-1" title="Remove item" aria-label="Remove item" aria-describedby="select2-selected_courses-container-choice-a1ku--1"><span aria-hidden="true"> x </span></button><span class="select2-selection__choice__display" id="select2-selected_courses-container-choice-a1ku--1">${course_name}</span></li>`;
                 // $('.select2-selection--multiple ul li span').text(course_name)
             } 
         }
@@ -123,6 +123,7 @@ function onAddWebsite(e) {
                 </td>	
         `;
         document.getElementById('myfrm').reset();
+        
 }
 
 
@@ -134,6 +135,8 @@ $("#submitbtn").click(function(){
     var object_id = $("#object_id").val(); 
     var ptitle = $("#ptitle").val(); 
     var pdesc = $("#pdesc").val();
+    var course = [].filter.call(selected_course.options , option=>option.selected).map(option=>option.value);
+
     if (ptitle==""||pdesc==""){
         alert("title and description both are mandatory");
         return false
@@ -141,11 +144,18 @@ $("#submitbtn").click(function(){
     else{ 
         
         $('#example tr').each(function(row, tr){ 
-            TableData[row]={ 
-                "orderno" : $(tr).find('td:eq(1)').text(), 
-                "viname" :$(tr).find('td:eq(2)').text(), 
-                "ykey" : $(tr).find('td:eq(3)').text().trim()
-            } 
+            is_deleted=$(tr).find('td:eq(4)').text();
+            if(is_deleted==0)
+            {
+                TableData[row]={ 
+                    "orderno" : $(tr).find('td:eq(1)').text(), 
+                    "viname" :$(tr).find('td:eq(2)').text(), 
+                    "ykey" : $(tr).find('td:eq(3)').text().trim(),
+    
+                } 
+            }
+
+          
         });  
         
         dictfinal = { 
@@ -160,7 +170,7 @@ $("#submitbtn").click(function(){
             data:{
                 'id' : object_id,
                 'updated_by' : 'ash',
-                'courses' : 1,
+                'course' : course,
                 'ptitle': ptitle,
                 'pdesc' : pdesc,
                 'videos' : JSON.stringify(TableData),
@@ -178,9 +188,6 @@ function onDeleteRow(e){
     // }
     const btn = e.target;
     btn.closest('tr').remove();
-
-    // const idx = TableData.findIndex(({viname})=> viname === e.target.parentNode.parentNode.children[2].innerHTML);
-    // TableData.splice(idx,1);
     reorder_rows();
 
 }

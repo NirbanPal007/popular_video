@@ -55,6 +55,7 @@ class PopularVideo(models.Model):
     video_name = models.CharField(max_length=255,null=False, blank=False)
     video_key = models.TextField(null=False, blank=False)
     order_no = models.IntegerField(default=-1)
+    # is_deleted=models.IntegerField(null=False,default=0)
     popular_videos_playlist  = models.ForeignKey(PopularVideosPlaylist,on_delete=models.CASCADE)
 
 

@@ -89,9 +89,9 @@
 							  <label for="description">Course:</label>
 							</div>
 							<select id="selected_courses" multiple>
-							  <option value = -1 selected>
+							  {% comment %} <option value = -1>
 							  All Courses
-							  </option>
+							  </option> {% endcomment %}
 							  {% for i in courses %}:
 							  {% debug %}
 							  <option value="{{ i.id}}">{{ i.name }}</option>
@@ -175,8 +175,9 @@
 							<span class="ykey" data-toggle="modal" data-target="#addVideoPlayModal">{{i.video_key}}</span></td>
 							<td><i class="fa-solid fa-grip cur-mov"></i></td>
 							<td class="last">
-								<button href="" class="deleteBtn btn btn-outline-danger shw-del" style="border: 1px solid red;" data-toggle="tooltip" data-placement="right" title="Remove">Remove</button>
+								<button href="" class="deleteBtn btn btn-outline-danger shw-del" style="border: 1px solid red;" data-toggle="tooltip" data-placement="right" title="Remove" onclick="onDeleteRow(event);">Remove</button>
 							</td>
+							<td>0</td>
 						</tr>	
 						{% endfor %}		
 						</tbody>

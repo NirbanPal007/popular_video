@@ -91,9 +91,9 @@
 								<label for="description">Course:</label>
 							</div>
 							<select id="all_courses" multiple>
-								<option value = -1 selected>
+								{% comment %} <option value = -1 selected>
 									All Courses
-								</option>
+								</option> {% endcomment %}
 								{% for i in courses %}:
 								{% debug %}
 								<option value="{{ i.id}}">{{ i.name }}</option>
@@ -173,6 +173,7 @@
 							<td class="last">
 								<button href="" class="deleteBtn btn btn-outline-danger shw-del" style="border: 1px solid red;" data-toggle="tooltip" data-placement="right" title="Remove">Remove</button>
 							</td>
+							<td>0</td>
 						</tr>	
 						{% endfor %}		
 						</tbody>
